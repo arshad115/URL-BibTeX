@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request, jsonify
-import urllib.request
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse
 import datetime
+import requests
 
 app = Flask(__name__)
 
@@ -17,15 +17,24 @@ def submit():
     url = request.json['url']
     parsed_uri = urlparse(url)
 
-    contents = urllib.request.urlopen(url).read()
+    contents = requests.get(url).content
 
-    author = ''
+    author = title = ''
     soup = BeautifulSoup(contents)
-    authors = soup.findAll("meta", {"name" : "author"})
+    op = soup.findAll("meta",{"property" : "article_author"})
+    authors = soup.findAll("meta", {"name" : "author"}) + soup.findAll("meta", {"name" : "article_author"}) + soup.findAll("meta", {"property" : "author"}) + soup.findAll("meta",{"property" : "article_author"})
     if authors.__len__() >= 1:
         author = authors[0]["content"]
 
-    title = soup.find('title').text
+    titles = soup.findAll("meta", {"name": "og:title"}) + soup.findAll("meta", {"property": "og:title"})
+    if titles.__len__() >= 1:
+        title = titles[0]["content"]
+
+    if not title:
+        title = soup.find('title')
+        if hasattr(title, 'text'):
+            title = title.text
+
     shortName = parsed_uri.netloc
     now = datetime.datetime.now()
 
