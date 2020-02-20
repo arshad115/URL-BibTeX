@@ -20,7 +20,7 @@ This project uses:
  * Twitter Bootstrap
  * jQuery
  * Python Flask
- 
+
 ## Developer
 
 Arshad Mehmood 2020. https://arshadmehmood.com

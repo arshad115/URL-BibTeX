@@ -3,5 +3,8 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
+<<<<<<< HEAD
   <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.6 virtualenv at C:\Users\arsha\PycharmProjects\URL-BibTeX\venv" project-jdk-type="Python SDK" />
+=======
+>>>>>>> 782ac43c6f69bb6367ee548ebbfa81c0e2aac779
 </project>
